@@ -1,0 +1,11 @@
+flask
+flask_sqlalchemy
+flask_login
+python-dotenv
+pyotp
+flask-mail
+flask-dance
+openai
+flask-dance[google]
+psycopg2-binary
+Flask-Migrate

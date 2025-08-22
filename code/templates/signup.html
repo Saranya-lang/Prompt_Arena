@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up - PromptArena</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298, #667eea);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Auth Container */
+        .auth-container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transform: translateY(0);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .auth-header {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-header h2 {
+            font-size: 1.8em;
+            margin-bottom: 8px;
+        }
+
+        .auth-header p {
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        .auth-body {
+            padding: 30px;
+        }
+
+        /* Flash Messages */
+        .flash-messages {
+            margin: 10px 0;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            font-size: 0.95em;
+        }
+
+        .flash-messages .error {
+            color: #ff6b6b;
+        }
+
+        .flash-messages .info {
+            color: #4ecdc4;
+        }
+
+        /* Form Inputs */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1em;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+
+        /* Submit Button */
+        button[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background: #e55c5c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Link Text */
+        .link-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .link-text a {
+            color: #4ecdc4;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .link-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="auth-container">
+    <div class="auth-header">
+        <h2>🚀 Join PromptArena</h2>
+        <p>Create your account to start battling with AI-powered prompts</p>
+    </div>
+
+    <div class="auth-body">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <p class="{{ category }}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Sign Up Form -->
+        <form method="POST" action="{{ url_for('signup') }}">
+            <input 
+                type="text" 
+                name="first_name" 
+                placeholder="First Name" 
+                required 
+                autofocus
+            >
+            <input 
+                type="text" 
+                name="last_name" 
+                placeholder="Last Name" 
+                required 
+            >
+            <input 
+                type="email" 
+                name="email" 
+                placeholder="Email Address" 
+                required 
+            >
+            <input 
+                type="text" 
+                name="mobile_number" 
+                placeholder="Mobile Number (Optional)" 
+            >
+            <input 
+                type="password" 
+                name="password" 
+                placeholder="Create Password" 
+                required 
+                minlength="6"
+            >
+            <button type="submit">Create Account</button>
+        </form>
+
+        <!-- Login Link -->
+        <div class="link-text">
+            Already have an account? <a href="{{ url_for('login') }}">Log In</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
